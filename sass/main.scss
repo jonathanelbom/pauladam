@@ -231,6 +231,7 @@ body {
 .thumbs {
 	padding: 0;
 	padding-top: 80px;
+	padding-bottom: 80px;
 	width: 90%;
 	//background-color: #f2f2f2;
 }
@@ -455,7 +456,7 @@ $offset: 5px;
 }
 .contact {
 	min-height: 200px;
-	background-color: $blue;
+	background-color: darken($blue, 15%);
 }
 .thumbs-wrapper {
 	width: 100%;
