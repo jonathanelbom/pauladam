@@ -3,13 +3,15 @@
 	var api_url = 'https://api.flickr.com/services/rest/?jsoncallback=?';
 	var username = "jonnybomb";
 	var clientUsername = "paulsadam";
+	var pizzaOvenCollectionId = '139611271-72157663848686246';
 	var user_id;
 	var photosets = {};
 	var photos = {};
 	var templates = {
 		section: '<section class="section"></section>',
 		thumb: '<img class="thumb"></img>',
-		navitem: '<li><a href="#" class="nav-item"></a></li>'
+		navitem: '<li><a href="#" class="nav-item"></a></li>',
+		job: '<section class="work__job"><div class="work__job__container container"><h2 class="work__job__title js-work__job__title"></h2><p class="work__job__description js-work__job__description"></p><div class="work__job_thumbs"></div></div></section>'
 	};
 	var $main = $('main');
 	var $modal = $('.modal');
@@ -21,6 +23,7 @@
 	var $shell = $('.nav-shell');
 	var photos;
 	var photo;
+	var _photos = {};
 	var allPhotos = [];
 	var curPhotos = [];
 	var photosetsLoaded = 0;
@@ -69,20 +72,20 @@
 		//console.log('scroll, $(this).scrollTop():',$(this).scrollTop());
 		var scrolltop = $(this).scrollTop()
 		var threshhold = 150;
-		var amount = scrolltop * 0.6;// - threshhold;
+		var amount = scrolltop * 0.5;// - threshhold;
 		$('.hero > img').css('top', amount );
 		var top = $('.callout').css('top');
 		//console.log('top:',top);
-		$('.callout').css('top', 200 + amount + 'px');
+		//$('.callout').css('top', 200 + amount + 'px');
 		var shrink =  $(this).scrollTop() > threshhold && !menuShrunk;
 		var grow = $(this).scrollTop() <= threshhold && menuShrunk;
-		if ( shrink ) {
-			$shell.addClass('shrunk');
-			menuShrunk = true;
-		} else if ( grow ) {
-			$shell.removeClass('shrunk');
-			menuShrunk = false;
-		}
+		// if ( shrink ) {
+		// 	$shell.addClass('shrunk');
+		// 	menuShrunk = true;
+		// } else if ( grow ) {
+		// 	$shell.removeClass('shrunk');
+		// 	menuShrunk = false;
+		// }
 	})
 	if ( isMobile ) {
 		$(window).on('orientationchange', function() {
@@ -90,7 +93,7 @@
 		});
 	}
 
-	//$loader.hide();
+	$loader.hide();
 	// on nav link click
 	$('header').on( mouseEvent, '.nav-item', function() {
 		$('.nav-item').removeClass('selected');
@@ -105,12 +108,12 @@
 		$('.navbar-collapse').removeClass('in');
 	});
 
-	$('.hero').css('margin-top', $('.main-nav').outerHeight() + 0 + 'px');
+	$('.hero').css('padding-top', $('.main-nav').outerHeight() + 0 + 'px');
 	//$('.thumbs').css('padding-top', $('.main-nav').outerHeight() + 15 + 'px');
 	// modal controls position
 	var height = $modalControls.outerHeight();
 	$modalControls.css('top', 'calc(50% - '+height/2+'px)');
-	
+
 
 	// thumbs handler
 	$main.on( mouseEvent, '.thumb', function() {
@@ -218,34 +221,29 @@
 		photo = _.findWhere( curPhotos, {id: photoId.toString()} );
 		return photo;
 	}
-
 	function findNextPhotoFromCurPhotos() {
 		var idx = curPhotos.indexOf( photo );
 		idx = idx === curPhotos.length - 1 ? 0 : idx + 1;
 		photo = curPhotos[ idx ];
 		return photo;
 	}
-
 	function findPrevPhotoFromCurPhotos() {
 		var idx = curPhotos.indexOf( photo );
 		idx = idx ===  0 ? curPhotos.length - 1 : idx - 1;
 		photo = curPhotos[ idx ];
 		return photo;
 	}
-
 	function findPhotoFromSet( photoId, photosetId ) {
 		photos = photosets[ photosetId ].photoset.photo;
 		photo = _.findWhere( photos, {id: photoId.toString()} );
 		return photo;
 	}
-
 	function findNextPhotoFromSet() {
 		var idx = photos.indexOf( photo );
 		idx = idx === photos.length - 1 ? 0 : idx + 1;
 		photo = photos[ idx ];
 		return photo;
 	}
-
 	function findPrevPhotoFromSet() {
 		var idx = photos.indexOf( photo );
 		idx = idx ===  0 ? photos.length - 1 : idx - 1;
@@ -280,7 +278,7 @@
 		});
 		$('.section').justifiedGallery().on('jg.complete', function (e) {
 		    toggleLoader(false);
-		    $(document).scrollTop( 0 );
+		    //$(document).scrollTop( 0 );
 		});
 		hasGrid = true;
 	}
@@ -295,7 +293,8 @@
     		show = !$loader.is(":visible");
     	}
     	//$loader.show();
-    	show ? $loader.show() : $loader.hide();
+    	//show ? $loader.show() : $loader.hide();
+    	$loader.hide();
     }
 	function checkForAllImagesLoaded() {
 		var allLoaded = true;
@@ -382,40 +381,59 @@
 			.attr( {'data-photo-id': photo.id, 'data-photoset-id': photo.photosetId } );
 		$div.appendTo( '.section');
 	}
-	function isPizzaOvenPhotoset( photoset ) {
-		console.log('photoset.title._content.indexOf(pizza oven):',photoset.title._content.indexOf('pizza oven'),', photoset.title._content:',photoset.title._content);
-		return photoset.title._content.indexOf('pizza oven') > -1;
-	}
-	// when all of a user's photosets are return from flickr
-	function onGetPhotosets(data) {
-		//console.log('onGetPhotosets, data.photosets.photoset:', data.photosets.photoset);
-		console.log('onGetPhotosets, data:',data);
+
+	// called when photosets obtained, either from collection for from user
+	function onPhotosetsObtained( sets ) {
+		console.log('onPhotosetsObtained'
+			,', sets:',sets
+		);
 		var $nav = $('#nav-scroll > .navbar-right');
+		var $work = $('.work');
 		$imageHolder = $( templates.section.concat() ).appendTo( $main );
-		console.log('$imageHolder:',$imageHolder);
-		$nav.append( $('<li><a href="#" class="nav-item" data-section-id="all">all</a></li>') );
-		$.each( data.photosets.photoset, function( index, photoset) {
-			if ( isPizzaOvenPhotoset(this) ) {
+		$imageHolder.hide();
+		//$nav.append( $('<li><a href="#" class="nav-item" data-section-id="all">all</a></li>') );
+		$.each( sets, function( index, photoset) {
+			//if ( isPizzaOvenPhotoset(this) ) {
 				numPhotosets++;
 				photosets[ photoset.id ] = photoset;
 				// add the section nav item
-				$( templates.navitem.concat() )
-					.appendTo( $nav )
-					.find('a')
+				// $( templates.navitem.concat() )
+				// 	.appendTo( $nav )
+				// 	.find('a')
+				// 	.attr( 'data-section-id', this.id )
+				// 	.text( this.title );
+				// add the work section template
+				var $job = $( templates.job.concat() )
+					.appendTo( $work )
 					.attr( 'data-section-id', this.id )
-					.text( this.title._content.split('- ')[1] );
+					.find('.js-work__job__title')
+						.text( photoset.title )
+					.end()
+					.find( '.js-work__job__description' )
+						.text( photoset.description );
 				// get photoset for individual photo info
 				getPhotoset(this.id);
-			}
+			//}
 		});
+	}
+	// when a collection tree is returned from flickr
+	function onGetCollectionTree(data) {
+		var collection = _.findWhere( data.collections.collection, {id: pizzaOvenCollectionId} );
+		console.log('collection:',collection)
+		// populate about section with colletion title and description
+		$('.js-about__title').text( collection.title );
+		$('.js-about__description').text( collection.description );
+		// get photsets info for each album in this collection
+		onPhotosetsObtained( collection.set );
 
-		// click all
-		$('a[data-section-id="all"]').trigger( mouseEvent );
+		// old - get the photosets (albums) for the pizza oven collections
+		//getPhotosets();
 	}
 	// when a user id is returned from flickr
 	function onGetUserId(data) {
 		user_id = data.user.nsid;
-		getPhotosets();
+		getCollectionTree();
+		//getPhotosets();
 	}
 	function getPhotosets() {
 		$.getJSON(
@@ -427,6 +445,17 @@
 				per_page: 20
 			},
 			onGetPhotosets
+	    );
+	}
+	function getCollectionTree(name) {
+		$.getJSON(
+			api_url,
+			{ 	method : "flickr.collections.getTree",
+				api_key : api_key,
+				format : "json",
+				user_id: user_id,
+			},
+			onGetCollectionTree
 	    );
 	}
 	function getUserId(name) {
