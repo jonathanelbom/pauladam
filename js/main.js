@@ -11,7 +11,7 @@
 		section: '<section class="section"></section>',
 		thumb: '<img class="thumb"></img>',
 		navitem: '<li><a href="#" class="nav-item"></a></li>',
-		job: '<section class="work__job"><div class="work__job__container container"><h2 class="work__job__title js-work__job__title"></h2><p class="work__job__description js-work__job__description"></p><div class="work__job_thumbs"></div></div></section>'
+		job: '<section class="work__job"><div class="work__job__container container"><h2 class="work__job__title js-work__job__title"></h2><p class="work__job__description js-work__job__description"></p><div class="work__job__thumbs js-work__job__thumbs"></div></div></section>'
 	};
 	var $main = $('main');
 	var $modal = $('.modal');
@@ -68,17 +68,47 @@
 		$fullsize.removeClass('full-width full-height');
 		debouncedResize();
 	})
+
 	$(window).on('scroll', function() {
 		//console.log('scroll, $(this).scrollTop():',$(this).scrollTop());
-		var scrolltop = $(this).scrollTop()
-		var threshhold = 150;
-		var amount = scrolltop * 0.5;// - threshhold;
-		$('.hero > img').css('top', amount );
+		var scrolltop = $(window).scrollTop()
+		var threshold = 200;
+		var amount = scrolltop * 0.5;// - threshold; 
 		var top = $('.callout').css('top');
 		//console.log('top:',top);
-		//$('.callout').css('top', 200 + amount + 'px');
-		var shrink =  $(this).scrollTop() > threshhold && !menuShrunk;
-		var grow = $(this).scrollTop() <= threshhold && menuShrunk;
+		// var shrink =  $(this).scrollTop() > threshold && !menuShrunk;
+		// var grow = $(this).scrollTop() <= threshold && menuShrunk;
+		
+		var pMax = 30;
+		var dYMax = 200;
+		var scMax = 1.3;
+		var change = (scrolltop-threshold)/dYMax;
+		var normChg = Math.min(Math.max(change,0), 1);
+		var adj = 0;
+		var scale = 1;
+		if ( change<0 ) {
+			adj = pMax;
+			scale = scMax;
+		} else if ( change<=1 ) {
+			adj = pMax - change*pMax;
+			scale = Math.round( (1+(1-change)*(scMax-1)) * 1000) / 1000;
+		}
+		$('.callout').css('top', 'calc('+200*normChg); 
+		$('.hero > img').css('top', change*30 );
+		$('.logo').css( 'transform', 'scale('+scale+')' );
+		$('.shrunk .navbar-nav, .shrunk .navbar-header').css({
+			'padding-top'    : 0 + adj,
+			'padding-bottom' : 5 + adj
+		});
+		$('.hero').css('margin-top', $('.main-nav').outerHeight() + 0 + 'px');
+		// console.log(''
+		// 	,'\nscrolltop:',scrolltop
+		// 	,'\nthreshold:',threshold
+		// 	,'\nchange:',change
+		// 	,'\nadj:',adj
+		// 	,'\nscale:',scale
+		// );
+		
 		// if ( shrink ) {
 		// 	$shell.addClass('shrunk');
 		// 	menuShrunk = true;
@@ -108,7 +138,6 @@
 		$('.navbar-collapse').removeClass('in');
 	});
 
-	$('.hero').css('padding-top', $('.main-nav').outerHeight() + 0 + 'px');
 	//$('.thumbs').css('padding-top', $('.main-nav').outerHeight() + 15 + 'px');
 	// modal controls position
 	var height = $modalControls.outerHeight();
@@ -125,6 +154,7 @@
 		scrolling = true;
 	});
 
+	$(window).scroll();
 	/*  photo sizes
 	s	small square 75x75
 	q	large square 150x150
@@ -258,15 +288,17 @@
 	function getViewportSize() {
 		return { width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0), height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0) };
 	}
-	function initGrid() {
-		if ( hasGrid ) {
-			$('.section').justifiedGallery('destroy');
-			$('.section').justifiedGallery().off();
-		}
-		$('.section').justifiedGallery({
+	function initGrid( photosetId ) {
+		var $job = $('.work__job[data-section-id="'+photosetId+'"] .js-work__job__thumbs'); // $('.section')
+		console.log('$job:',$job);
+		// if ( hasGrid ) {
+		// 	$job.justifiedGallery('destroy');
+		// 	$job.justifiedGallery().off();
+		// }
+		$job.justifiedGallery({
 			rowHeight : getRowHeight(), //300,
 		    lastRow : 'nojustify',
-		    margins : 15,
+		    margins : 3,
 		    sizeRangeSuffixes: {
 			    100 : '_t', // used with images which are less than 100px on the longest side
 			    240 : '_m', // used with images which are between 100px and 240px on the longest side
@@ -276,7 +308,7 @@
 			    1024 : '_b' // used which images that are more than 640px on the longest side
 			}
 		});
-		$('.section').justifiedGallery().on('jg.complete', function (e) {
+		$job.justifiedGallery().on('jg.complete', function (e) {
 		    toggleLoader(false);
 		    //$(document).scrollTop( 0 );
 		});
@@ -310,6 +342,7 @@
 		}
 	}
 	function onPhotoLoad( id, success ) {
+		//console.log('onPhotoLoad, id:',id,', success:',success);
 		if ( imageLoadHash[id] ) {
 			delete imageLoadHash[id];
 			//checkForAllImagesLoaded();
@@ -317,11 +350,12 @@
 	}
 	function getRowHeight() {
 		var vp = getViewportSize();
-		var rowHeight = 300;
+		var pct = 0.75;
+		var rowHeight = 300*pct;
 		if (vp.width <= 500) {
-			rowHeight = 100;
+			rowHeight = 100*pct;
 		} else if (vp.width <= 800) {
-			rowHeight = 200;
+			rowHeight = 200*pct;
 		}
 		//console.log('rowHeight:',rowHeight);
 		return rowHeight;
@@ -349,20 +383,28 @@
 		photosetsLoaded++;
 		$.each( data.photoset.photo, function (index, photo) {
 			photo.photosetId = data.photoset.id;
-			allPhotos.push( photo );
+			_photos[ photoset.id ].push( photo );
+			//console.log('_photos[',photoset.id,']:',_photos[ photoset.id ]);
+			//allPhotos.push( photo );
 		});
-		//console.log('photosets:',photosets);
-		if ( numPhotosets > 0 && photosetsLoaded === numPhotosets ) {
-			addPhotos( allPhotos );
-			initGrid();
-			// console.log('init grid');
-		}
+		
+
+		addPhotos( _photos[ photoset.id ] );
+		initGrid( photoset.id );
+		console.log('photoset:',photoset);
+		// if ( numPhotosets > 0 && photosetsLoaded === numPhotosets ) {
+		// 	addPhotos( allPhotos );
+		// 	initGrid();
+
+		// 	// console.log('init grid');
+		// }
 
 	}
 	function addPhotos( photos ) {
 		curPhotos = _.shuffle(photos);
 		_.each( curPhotos, addPhoto );
-		// $('.section').on('click', '.thumb', function() {
+		
+		// // $('.section').on('click', '.thumb', function() {
 		// 	var photo = curPhotos.findWhere({});
 		// });
 	}
@@ -374,12 +416,19 @@
 				onPhotoLoad( $(this).data('photoId'), false );
 			})
 			.on('load', function() {
+				//console.log('$this.parent():',$(this).parent());
 				onPhotoLoad( $(this).parent().data('photoId'), true );
 			})
 			.attr('src', url);
-		var $div = $('<div></div>').append( $thumb )
-			.attr( {'data-photo-id': photo.id, 'data-photoset-id': photo.photosetId } );
-		$div.appendTo( '.section');
+		//var id = $thumb.data('photoId');
+		var $div = $('<div></div>')
+			.append( $thumb )
+			.attr({
+				'data-photo-id': photo.id,
+				'data-photoset-id': photo.photosetId
+			})
+			.appendTo( '.work__job[data-section-id="'+photo.photosetId+'"] .js-work__job__thumbs');
+			//console.log('$section:',$section);
 	}
 
 	// called when photosets obtained, either from collection for from user
@@ -396,6 +445,15 @@
 			//if ( isPizzaOvenPhotoset(this) ) {
 				numPhotosets++;
 				photosets[ photoset.id ] = photoset;
+				_photos[ photoset.id ] = [];
+				var $job = $( templates.job.concat() )
+					.appendTo( $('.work') )
+					.attr( 'data-section-id', this.id )
+					.find('.js-work__job__title')
+						.text( photoset.title )
+					.end()
+					.find( '.js-work__job__description' )
+						.text( photoset.description );
 				// add the section nav item
 				// $( templates.navitem.concat() )
 				// 	.appendTo( $nav )
@@ -403,14 +461,7 @@
 				// 	.attr( 'data-section-id', this.id )
 				// 	.text( this.title );
 				// add the work section template
-				var $job = $( templates.job.concat() )
-					.appendTo( $work )
-					.attr( 'data-section-id', this.id )
-					.find('.js-work__job__title')
-						.text( photoset.title )
-					.end()
-					.find( '.js-work__job__description' )
-						.text( photoset.description );
+				
 				// get photoset for individual photo info
 				getPhotoset(this.id);
 			//}
