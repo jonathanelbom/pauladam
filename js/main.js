@@ -84,6 +84,7 @@
 		var scMax = 1.3;
 		var change = (scrolltop-threshold)/dYMax;
 		var normChg = Math.min(Math.max(change,0), 1);
+
 		var adj = 0;
 		var scale = 1;
 		if ( change<0 ) {
@@ -93,21 +94,24 @@
 			adj = pMax - change*pMax;
 			scale = Math.round( (1+(1-change)*(scMax-1)) * 1000) / 1000;
 		}
-		$('.callout').css('top', 'calc('+200*normChg); 
-		$('.hero > img').css('top', change*30 );
+		$('.callout').css('top', 'calc('+400*normChg+')'); 
+		$('.hero > img').css('top', change*19+'%' );
 		$('.logo').css( 'transform', 'scale('+scale+')' );
 		$('.shrunk .navbar-nav, .shrunk .navbar-header').css({
 			'padding-top'    : 0 + adj,
 			'padding-bottom' : 5 + adj
 		});
 		$('.hero').css('margin-top', $('.main-nav').outerHeight() + 0 + 'px');
-		// console.log(''
-		// 	,'\nscrolltop:',scrolltop
-		// 	,'\nthreshold:',threshold
-		// 	,'\nchange:',change
-		// 	,'\nadj:',adj
-		// 	,'\nscale:',scale
-		// );
+		
+		console.log(''
+			,'\nchange:',change
+			,'\nnormChg:',normChg
+			// ,'\nscrolltop:',scrolltop
+			// ,'\nthreshold:',threshold
+			// ,'\nchange:',change
+			// ,'\nadj:',adj
+			// ,'\nscale:',scale
+		);
 		
 		// if ( shrink ) {
 		// 	$shell.addClass('shrunk');

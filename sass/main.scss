@@ -456,39 +456,18 @@ $offset: 5px;
 	width: 100%;
 	background-color: #f2f2f2;
 }
-.hero {
-	background-color: #000;
-	height: 400px;
-	overflow: hidden;
-	position: relative;
-	.callout {
-		width: 100%;
-		position: absolute;
-		font-size: 55px;
-		color: #fff;
-		top: 35%;
-		// left: 35%;
-		letter-spacing: -3px;
-		font-weight:300;
-		display:flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.callout__top {
-		margin-bottom:20px;
-	}
-	.callout__bottom {
-		text-transform: uppercase;
-		font-size: 18px;
-		font-weight: 400;
-		letter-spacing: 0px;
-	}
-	> img {
-		-webkit-filter: blur(5px) brightness(50%);;//grayscale(100%) contrast(150%);
-		min-width: 100%;
-		min-height: 100%;
-		position: relative;
-		overflow: hidden;
+.brand {
+	//background-color: $blue;
+	//background-size: auto auto;
+}
+.brand__icon {
+	width: 80%;
+	height: 80%;
+	max-width: 300px;
+}
+svg {
+	path, rect {
+		fill: $blue;
 	}
 }
 .pizza {
@@ -598,9 +577,48 @@ section {
 	[class*="__title"] {
 		font-size: 1.75em;
 		font-weight: 400;
+		margin-bottom: 30px;
 	}
 
 }
+
+// ----------------------------- Hero -----------------------------
+.hero {
+	background-color: #000;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+	.callout {
+		width: 100%;
+		position: absolute;
+		font-size: 55px;
+		color: #fff;
+		top: 35%;
+		// left: 35%;
+		letter-spacing: -3px;
+		font-weight:300;
+		display:flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.callout__top {
+		margin-bottom:20px;
+	}
+	.callout__bottom {
+		text-transform: uppercase;
+		font-size: 18px;
+		font-weight: 400;
+		letter-spacing: 0px;
+	}
+	> img {
+		-webkit-filter: blur(5px) brightness(50%);;//grayscale(100%) contrast(150%);
+		min-width: 100%;
+		min-height: 120%;
+		position: relative;
+		overflow: hidden;
+	}
+}
+
 // ----------------------------- About Section -----------------------------
 // .about {
 // 	[class*="__description"] {
