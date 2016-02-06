@@ -606,24 +606,22 @@ body.modal-shown {
 }
 /* line 541, ../sass/main.scss */
 .hero .callout {
+  z-index: 1001;
+  padding: 0 40px;
   text-align: center;
   width: 100%;
   position: absolute;
   font-size: 55px;
   color: #fff;
-  top: 35%;
   letter-spacing: -3px;
   font-weight: 300;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
-/* line 555, ../sass/main.scss */
+/* line 557, ../sass/main.scss */
 .hero .callout__top {
   margin-bottom: 20px;
   line-height: 1em;
 }
-/* line 559, ../sass/main.scss */
+/* line 561, ../sass/main.scss */
 .hero .callout__bottom {
   text-transform: uppercase;
   margin-top: 20px;
@@ -631,7 +629,7 @@ body.modal-shown {
   font-weight: 400;
   letter-spacing: 0px;
 }
-/* line 566, ../sass/main.scss */
+/* line 568, ../sass/main.scss */
 .hero > img {
   -webkit-filter: blur(5px) brightness(50%);
   min-width: 100%;
@@ -640,7 +638,7 @@ body.modal-shown {
   overflow: hidden;
 }
 
-/* line 580, ../sass/main.scss */
+/* line 582, ../sass/main.scss */
 .brand__wrapper {
   background-color: #aaa;
   max-width: 250px;
@@ -653,65 +651,65 @@ body.modal-shown {
   border-radius: 200px 200px 0 0;
 }
 
-/* line 588, ../sass/main.scss */
+/* line 590, ../sass/main.scss */
 .brand__icon {
   position: relative;
   top: 0px;
 }
 
-/* line 596, ../sass/main.scss */
+/* line 598, ../sass/main.scss */
 svg path, svg rect {
   fill: #fff;
 }
 
-/* line 603, ../sass/main.scss */
+/* line 605, ../sass/main.scss */
 .section.work {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-/* line 607, ../sass/main.scss */
+/* line 609, ../sass/main.scss */
 .work__job {
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
-/* line 611, ../sass/main.scss */
+/* line 613, ../sass/main.scss */
 .work__job:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-/* line 615, ../sass/main.scss */
+/* line 617, ../sass/main.scss */
 .contact {
   color: #fff;
   background-color: #33000e;
 }
 
 @media (max-width: 767px) {
-  /* line 625, ../sass/main.scss */
+  /* line 627, ../sass/main.scss */
   .logo {
     margin-left: 10px;
   }
 
-  /* line 629, ../sass/main.scss */
+  /* line 631, ../sass/main.scss */
   .nav > li > a.nav-item {
     padding: 15px 10px;
     margin: 0;
     transition: background-color 0.35s ease;
     padding-left: 30px;
   }
-  /* line 634, ../sass/main.scss */
+  /* line 636, ../sass/main.scss */
   .nav > li > a.nav-item:hover, .nav > li > a.nav-item.selected {
     color: #fff;
     background-color: #7F0022;
     border-color: transparent;
   }
-  /* line 642, ../sass/main.scss */
+  /* line 644, ../sass/main.scss */
   .nav > li:not(:last-child) > a.nav-item {
     margin-bottom: 1px;
   }
 
-  /* line 650, ../sass/main.scss */
+  /* line 652, ../sass/main.scss */
   .brand__wrapper {
     margin-bottom: 40px;
   }
