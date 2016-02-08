@@ -515,8 +515,8 @@ $offset: 5px;
 	}
 }
 
-$section-padding: 40px;
 // ----------------------------- All Sections -----------------------------
+$section-padding: 60px;
 .section {
 	padding-top: $section-padding;
 	padding-bottom: $section-padding;
@@ -580,11 +580,11 @@ $section-padding: 40px;
 	//background-size: auto auto;
 }
 .brand__wrapper {
-	background-color: #aaa;
+	background-color: #fff;
 	max-width: 250px;
 	width: 100%;
 	margin: auto;
-	padding: 20px 20px 10px 20px;
+	padding: 5px 10px 0px 10px;
 	@include border-radius(200px 200px 0 0); 
 }
 .brand__icon {
@@ -596,10 +596,28 @@ $section-padding: 40px;
 }
 svg {
 	path, rect {
-		fill: #fff; //$blue;
+		fill: $blue; //$blue;
 	}
 }
-.about__title {
+.about {
+	background-color: $blue;
+	[class*="__description"] {
+		color: #fff;
+	}
+	[class*="__title"] {
+		color: #fff;
+	}
+}
+.about__point {
+	$height: 80px;
+	$width: 80px;
+	width: 80px;
+	height: 80px;
+	@include calc( 'left', '50% - '+$width );
+	position: absolute;
+	border-top: $height solid $blue;
+	border-left: $width solid transparent;
+	border-right: $width solid transparent;
 }
 // ----------------------------- Work Section -----------------------------
 .section.work {
@@ -613,10 +631,31 @@ svg {
 .work__job:nth-child(odd) {
 	background-color: #f2f2f2;
 }
+.work__job:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+.work__job__description {
+	margin-bottom: 30px;
+}
 // ----------------------------- Work Section -----------------------------
 .contact {
 	color: #fff;
-	background-color: darken($blue, 15%);
+	background-color: $blue;
+	i {
+		margin-right: 20px;
+		font-size: 1.75em;
+	}
+	
+}
+.contact__copyright {
+	i {
+		margin-right: 0px;
+		font-size: 1em;
+	}
+	opacity: 0.3;
+	margin-top: 20px;
+	margin-left: 50px;
+
 }
 
 @media (max-width: 767px) {

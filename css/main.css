@@ -581,8 +581,8 @@ body.modal-shown {
 
 /* line 520, ../sass/main.scss */
 .section {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 /* line 523, ../sass/main.scss */
 .section [class*="__description"] {
@@ -640,11 +640,11 @@ body.modal-shown {
 
 /* line 582, ../sass/main.scss */
 .brand__wrapper {
-  background-color: #aaa;
+  background-color: #fff;
   max-width: 250px;
   width: 100%;
   margin: auto;
-  padding: 20px 20px 10px 20px;
+  padding: 5px 10px 0px 10px;
   -webkit-border-radius: 200px 200px 0 0;
   -moz-border-radius: 200px 200px 0 0;
   -ms-border-radius: 200px 200px 0 0;
@@ -659,58 +659,112 @@ body.modal-shown {
 
 /* line 598, ../sass/main.scss */
 svg path, svg rect {
-  fill: #fff;
+  fill: #7F0022;
 }
 
-/* line 605, ../sass/main.scss */
+/* line 602, ../sass/main.scss */
+.about {
+  background-color: #7F0022;
+}
+/* line 604, ../sass/main.scss */
+.about [class*="__description"] {
+  color: #fff;
+}
+/* line 607, ../sass/main.scss */
+.about [class*="__title"] {
+  color: #fff;
+}
+
+/* line 611, ../sass/main.scss */
+.about__point {
+  width: 80px;
+  height: 80px;
+  left: -moz-calc(50% - 80px);
+  left: -webkit-calc(50% - 80px);
+  left: -ms-calc(50% - 80px);
+  left: calc(50% - 80px);
+  position: absolute;
+  border-top: 80px solid #7F0022;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+}
+
+/* line 623, ../sass/main.scss */
 .section.work {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-/* line 609, ../sass/main.scss */
+/* line 627, ../sass/main.scss */
 .work__job {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
-/* line 613, ../sass/main.scss */
+/* line 631, ../sass/main.scss */
 .work__job:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-/* line 617, ../sass/main.scss */
+/* line 634, ../sass/main.scss */
+.work__job:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* line 637, ../sass/main.scss */
+.work__job__description {
+  margin-bottom: 30px;
+}
+
+/* line 641, ../sass/main.scss */
 .contact {
   color: #fff;
-  background-color: #33000e;
+  background-color: #7F0022;
+}
+/* line 644, ../sass/main.scss */
+.contact i {
+  margin-right: 20px;
+  font-size: 1.75em;
+}
+
+/* line 650, ../sass/main.scss */
+.contact__copyright {
+  opacity: 0.3;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+/* line 651, ../sass/main.scss */
+.contact__copyright i {
+  margin-right: 0px;
+  font-size: 1em;
 }
 
 @media (max-width: 767px) {
-  /* line 627, ../sass/main.scss */
+  /* line 666, ../sass/main.scss */
   .logo {
     margin-left: 10px;
   }
 
-  /* line 631, ../sass/main.scss */
+  /* line 670, ../sass/main.scss */
   .nav > li > a.nav-item {
     padding: 15px 10px;
     margin: 0;
     transition: background-color 0.35s ease;
     padding-left: 30px;
   }
-  /* line 636, ../sass/main.scss */
+  /* line 675, ../sass/main.scss */
   .nav > li > a.nav-item:hover, .nav > li > a.nav-item.selected {
     color: #fff;
     background-color: #7F0022;
     border-color: transparent;
   }
-  /* line 644, ../sass/main.scss */
+  /* line 683, ../sass/main.scss */
   .nav > li:not(:last-child) > a.nav-item {
     margin-bottom: 1px;
   }
 
-  /* line 652, ../sass/main.scss */
+  /* line 691, ../sass/main.scss */
   .brand__wrapper {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
 }

@@ -66,12 +66,24 @@
 		if ( !isMobile ) {
 			updateRowHeight();
 		}
+		var $brand = $('.brand');
+		var diff = $brand.parent().outerHeight()-$brand.outerHeight();
+		var float = $brand.css('float');
+		console.log('diff:',diff
+			,'float:',float
+		);
+		if ( $brand.css('float') === 'none' ) {
+			diff = 0;
+		}
+		if ( diff >= 0 ) {
+			$brand.css( 'top', diff/2+'px' );
+		}		
+		
 	}, 200 );
 	$(window).on('resize', function() {
 		$fullsize.removeClass('full-width full-height');
 		debouncedResize();
 	})
-
 	$(window).on('scroll', function() {
 		//console.log('scroll, $(this).scrollTop():',$(this).scrollTop());
 		var scrolltop = $(window).scrollTop()
@@ -98,10 +110,9 @@
 			scale = Math.round( (1+(1-change)*(scMax-1)) * 1000) / 1000;
 		}
 		var calloutHeight = $callout.outerHeight()/2;
-		var value = calloutHeight - scrolltop*0.5; //(400*normChg);
-		console.log('value:',value);
-		$callout.css('top', 'calc(50% - '+value+'px)'); 
-		
+		var value = calloutHeight;// - scrolltop*0.5; //(400*normChg);
+		//$callout.css('top', 'calc(50% - '+value+'px)'); 
+
 		$('.hero > img').css('top', change*19+'%' );
 		$('.logo').css( 'transform', 'scale('+scale+')' );
 		
@@ -119,15 +130,15 @@
    
 		$('#home').css('padding-top', $('.navbar-header').outerHeight() + 5 +adj*2 + 'px');
 		
-		console.log(''
-			,'\nchange:',change
-			,'\nnormChg:',normChg
-			// ,'\nscrolltop:',scrolltop
-			// ,'\nthreshold:',threshold
-			// ,'\nchange:',change
-			// ,'\nadj:',adj
-			// ,'\nscale:',scale
-		);
+		// console.log(''
+		// 	,'\nchange:',change
+		// 	,'\nnormChg:',normChg
+		// 	// ,'\nscrolltop:',scrolltop
+		// 	// ,'\nthreshold:',threshold
+		// 	// ,'\nchange:',change
+		// 	// ,'\nadj:',adj
+		// 	// ,'\nscale:',scale
+		// );
 		
 		// if ( shrink ) {
 		// 	$shell.addClass('shrunk');
@@ -142,7 +153,7 @@
 			updateRowHeight();
 		});
 	}
-
+	$callout.css('top', 'calc(50% - '+$callout.outerHeight()/2+'px)'); 
 	$loader.hide();
 	// on nav link click
 	function scrollToId( id ){
@@ -332,7 +343,7 @@
 		$job.justifiedGallery({
 			rowHeight : getRowHeight(), //300,
 		    lastRow : 'nojustify',
-		    margins : 3,
+		    margins : 15,
 		    sizeRangeSuffixes: {
 			    100 : '_t', // used with images which are less than 100px on the longest side
 			    240 : '_m', // used with images which are between 100px and 240px on the longest side
@@ -384,12 +395,12 @@
 	}
 	function getRowHeight() {
 		var vp = getViewportSize();
-		var pct = 0.75;
+		var pct = 0.6;
 		var rowHeight = 300*pct;
 		if (vp.width <= 500) {
-			rowHeight = 100*pct;
+			rowHeight = 250*pct;
 		} else if (vp.width <= 800) {
-			rowHeight = 200*pct;
+			rowHeight = 250*pct;
 		}
 		//console.log('rowHeight:',rowHeight);
 		return rowHeight;
@@ -508,6 +519,7 @@
 		// populate about section with colletion title and description
 		$('.js-about__title').text( collection.title );
 		$('.js-about__description').text( collection.description );
+		debouncedResize();
 		// get photsets info for each album in this collection
 		onPhotosetsObtained( collection.set );
 
