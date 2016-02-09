@@ -111,11 +111,17 @@
 		}
 		var calloutHeight = $callout.outerHeight()/2;
 		var value = calloutHeight;// - scrolltop*0.5; //(400*normChg);
+		$callout.css('top', 'calc(50% - '+$callout.outerHeight()/2+'px)'); 
 		//$callout.css('top', 'calc(50% - '+value+'px)'); 
-
+		// var $nav = $('.navbar-fixed-top');
+		// if ( change>0 && !$nav.hasClass('fixed') ) {
+		// 	$nav.addClass('fixed');
+		// } else if ( change<0 && $nav.hasClass('fixed') ) {
+		// 	$nav.removeClass('fixed');
+		// }
 		$('.hero > img').css('top', change*19+'%' );
 		$('.logo').css( 'transform', 'scale('+scale+')' );
-		
+		//$('#top').css('background-color', 'rgba(255,255,255,'+normChg+')' )
 		if ( false ) {
 			$('.shrunk .navbar-nav, .shrunk .navbar-header').css({
 				'padding-top'    : 0 + adj,
@@ -395,7 +401,7 @@
 	}
 	function getRowHeight() {
 		var vp = getViewportSize();
-		var pct = 0.6;
+		var pct = 0.5;
 		var rowHeight = 300*pct;
 		if (vp.width <= 500) {
 			rowHeight = 250*pct;

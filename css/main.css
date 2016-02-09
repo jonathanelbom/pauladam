@@ -613,13 +613,14 @@ body.modal-shown {
   position: absolute;
   font-size: 55px;
   color: #fff;
+  top: 35%;
   letter-spacing: -3px;
   font-weight: 300;
 }
 /* line 557, ../sass/main.scss */
 .hero .callout__top {
-  margin-bottom: 20px;
-  line-height: 1em;
+  margin-bottom: 30px;
+  line-height: 1.2em;
 }
 /* line 561, ../sass/main.scss */
 .hero .callout__bottom {
@@ -638,7 +639,7 @@ body.modal-shown {
   overflow: hidden;
 }
 
-/* line 582, ../sass/main.scss */
+/* line 583, ../sass/main.scss */
 .brand__wrapper {
   background-color: #fff;
   max-width: 250px;
@@ -651,31 +652,36 @@ body.modal-shown {
   border-radius: 200px 200px 0 0;
 }
 
-/* line 590, ../sass/main.scss */
+/* line 591, ../sass/main.scss */
+.contact .brand__wrapper {
+  max-width: 162px;
+}
+
+/* line 596, ../sass/main.scss */
 .brand__icon {
   position: relative;
   top: 0px;
 }
 
-/* line 598, ../sass/main.scss */
+/* line 604, ../sass/main.scss */
 svg path, svg rect {
   fill: #7F0022;
 }
 
-/* line 602, ../sass/main.scss */
+/* line 608, ../sass/main.scss */
 .about {
   background-color: #7F0022;
 }
-/* line 604, ../sass/main.scss */
+/* line 610, ../sass/main.scss */
 .about [class*="__description"] {
   color: #fff;
 }
-/* line 607, ../sass/main.scss */
+/* line 613, ../sass/main.scss */
 .about [class*="__title"] {
   color: #fff;
 }
 
-/* line 611, ../sass/main.scss */
+/* line 617, ../sass/main.scss */
 .about__point {
   width: 80px;
   height: 80px;
@@ -689,81 +695,102 @@ svg path, svg rect {
   border-right: 80px solid transparent;
 }
 
-/* line 623, ../sass/main.scss */
+/* line 629, ../sass/main.scss */
 .section.work {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-/* line 627, ../sass/main.scss */
+/* line 633, ../sass/main.scss */
 .work__job {
   padding-top: 60px;
   padding-bottom: 60px;
 }
 
-/* line 631, ../sass/main.scss */
-.work__job:nth-child(odd) {
-  background-color: #f2f2f2;
-}
-
-/* line 634, ../sass/main.scss */
-.work__job:nth-child(odd) {
-  background-color: #f2f2f2;
-}
-
 /* line 637, ../sass/main.scss */
+.work__job:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* line 640, ../sass/main.scss */
+.work__job:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* line 643, ../sass/main.scss */
 .work__job__description {
   margin-bottom: 30px;
 }
 
-/* line 641, ../sass/main.scss */
+/* line 647, ../sass/main.scss */
 .contact {
   color: #fff;
   background-color: #7F0022;
 }
-/* line 644, ../sass/main.scss */
+/* line 650, ../sass/main.scss */
 .contact i {
   margin-right: 20px;
   font-size: 1.75em;
 }
 
-/* line 650, ../sass/main.scss */
+/* line 656, ../sass/main.scss */
+.contact__icon {
+  width: 120px;
+  height: 120px;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  -ms-border-radius: 60px;
+  border-radius: 60px;
+  border: 5px solid #fff;
+}
+
+/* line 663, ../sass/main.scss */
 .contact__copyright {
   opacity: 0.3;
   margin-top: 20px;
   margin-left: 50px;
 }
-/* line 651, ../sass/main.scss */
+/* line 664, ../sass/main.scss */
 .contact__copyright i {
   margin-right: 0px;
   font-size: 1em;
 }
+/* line 672, ../sass/main.scss */
+.contact__copyright.contact__license {
+  opacity: 0.3;
+  font-size: 9px;
+}
+/* line 675, ../sass/main.scss */
+.contact__copyright.contact__license a {
+  color: #fff;
+  text-decoration: underline;
+}
 
 @media (max-width: 767px) {
-  /* line 666, ../sass/main.scss */
+  /* line 687, ../sass/main.scss */
   .logo {
     margin-left: 10px;
   }
 
-  /* line 670, ../sass/main.scss */
+  /* line 691, ../sass/main.scss */
   .nav > li > a.nav-item {
     padding: 15px 10px;
     margin: 0;
     transition: background-color 0.35s ease;
     padding-left: 30px;
   }
-  /* line 675, ../sass/main.scss */
+  /* line 696, ../sass/main.scss */
   .nav > li > a.nav-item:hover, .nav > li > a.nav-item.selected {
     color: #fff;
     background-color: #7F0022;
     border-color: transparent;
   }
-  /* line 683, ../sass/main.scss */
+  /* line 704, ../sass/main.scss */
   .nav > li:not(:last-child) > a.nav-item {
     margin-bottom: 1px;
   }
 
-  /* line 691, ../sass/main.scss */
+  /* line 712, ../sass/main.scss */
   .brand__wrapper {
     margin-bottom: 60px;
   }

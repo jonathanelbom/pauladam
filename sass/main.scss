@@ -546,7 +546,7 @@ $section-padding: 60px;
 		position: absolute;
 		font-size: 55px;
 		color: #fff;
-		//top: 35%;
+		top: 35%;
 		// left: 35%;
 		letter-spacing: -3px;
 		font-weight:300;
@@ -555,8 +555,8 @@ $section-padding: 60px;
 		// align-items: center;
 	}
 	.callout__top {
-		margin-bottom:20px;
-		line-height: 1em;
+		margin-bottom:30px;
+		line-height: 1.2em;
 	}
 	.callout__bottom {
 		text-transform: uppercase;
@@ -579,13 +579,19 @@ $section-padding: 60px;
 	//background-color: $blue;
 	//background-size: auto auto;
 }
+
 .brand__wrapper {
 	background-color: #fff;
 	max-width: 250px;
 	width: 100%;
 	margin: auto;
 	padding: 5px 10px 0px 10px;
-	@include border-radius(200px 200px 0 0); 
+	@include border-radius(200px 200px 0 0);
+}
+.contact .brand__wrapper {
+	//width: 100%;
+	//min-width: 150px;
+	max-width: 162px;
 }
 .brand__icon {
 	position: relative;
@@ -647,6 +653,13 @@ svg {
 	}
 	
 }
+.contact__icon {
+	width: 120px;
+	height: 120px;
+	@include border-radius(60px);
+	border: 5px solid #fff;
+}
+$margL: 50px;
 .contact__copyright {
 	i {
 		margin-right: 0px;
@@ -654,8 +667,16 @@ svg {
 	}
 	opacity: 0.3;
 	margin-top: 20px;
-	margin-left: 50px;
+	margin-left: $margL;
 
+	&.contact__license {
+		opacity: 0.3;
+		font-size: 9px;
+		a {
+			color: #fff;
+			text-decoration: underline;
+		}
+	}
 }
 
 @media (max-width: 767px) {
