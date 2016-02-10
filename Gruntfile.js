@@ -34,6 +34,12 @@ module.exports = function(grunt) {
 					src: ['libs/**'],
 					dest: 'deploy/',
 					filter: 'isFile'
+				},
+				{
+					expand: true,
+					src: ['img/**'],
+					dest: 'deploy/',
+					filter: 'isFile'
 				}
 			]
 		  },

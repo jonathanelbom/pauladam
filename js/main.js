@@ -159,8 +159,12 @@
 	// on nav link click
 	function scrollToId( id ){
 	    var $elem = $('#'+id);
-	    var padding = $('.navbar-header').outerHeight() + (id === 'home' ? navPaddingMax*2 : 0) + 5;
-	    console.log(''
+	    var padding = $('header').outerHeight();
+	    console.log('scrollToId'
+	    	,'id:',id
+	    	,'padding:',padding
+	    	,'$elem.offset():',$elem.offset()
+
 	    )
 	    $('html,body').animate({scrollTop: $elem.offset().top-padding},500);
 	}
