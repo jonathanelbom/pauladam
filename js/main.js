@@ -88,7 +88,6 @@
 		//console.log('scroll, $(this).scrollTop():',$(this).scrollTop());
 		var scrolltop = $(window).scrollTop()
 		var threshold = 200;
-		var amount = scrolltop * 0.5;// - threshold; 
 		var top = $('.callout').css('top');
 		//console.log('top:',top);
 		// var shrink =  $(this).scrollTop() > threshold && !menuShrunk;
@@ -109,31 +108,7 @@
 			adj = pMax - change*pMax;
 			scale = Math.round( (1+(1-change)*(scMax-1)) * 1000) / 1000;
 		}
-		var calloutHeight = $callout.outerHeight()/2;
-		var value = calloutHeight;// - scrolltop*0.5; //(400*normChg);
-		//$callout.css('top', 'calc(50% - '+$callout.outerHeight()/2+'px)'); 
-		//$callout.css('top', 'calc(50% - '+value+'px)'); 
-		// var $nav = $('.navbar-fixed-top');
-		// if ( change>0 && !$nav.hasClass('fixed') ) {
-		// 	$nav.addClass('fixed');
-		// } else if ( change<0 && $nav.hasClass('fixed') ) {
-		// 	$nav.removeClass('fixed');
-		// }
-		//$('.hero > img').css('top', change*19+'%' );
-		//$('.logo').css( 'transform', 'scale('+scale+')' );
-		//$('#top').css('background-color', 'rgba(255,255,255,'+normChg+')' )
-		// if ( false ) {
-		// 	$('.shrunk .navbar-nav, .shrunk .navbar-header').css({
-		// 		'padding-top'    : 0 + adj,
-		// 		'padding-bottom' : 5 + adj
-		// 	});
-		// } else {
-		// 	$('.nav-shell').css({
-		// 		'padding-top'    : 0 + adj,
-		// 		'padding-bottom' : 5 + adj
-		// 	});
-		// }
-   
+		
 		//$('#homeShadow').css('padding-top', $('.navbar-header').outerHeight() + 5 +adj*2 + 'px');
 		
 		// console.log(''
@@ -154,13 +129,31 @@
 		// 	menuShrunk = false;
 		// }
 	})
+	var headerHeight = $('header').outerHeight();
+	$('body').scrollspy({ 
+		target: '#nav-scroll',
+		offset: headerHeight
+	});
+	$('body').on('activate.bs.scrollspy', function (e) {
+	 var id = $(e.target).find('a').attr('href');
+	 $('#nav-scroll')
+	  	.find('a')
+	  		.removeClass('selected')
+	  .end()
+	  	.find('a[href="'+id+'"]')
+	  		.addClass('selected');
+	  console.log('activate.bs.scrollspy, id:', id);
+
+	})
 	if ( isMobile ) {
 		$(window).on('orientationchange', function() {
 			updateRowHeight();
 		});
 	}
-	$('#homeShadow').css('padding-top', $('.navbar-header').outerHeight() + 5 +adj*2 + 'px');
-	$('#home').css('top', $('.navbar-header').outerHeight() + 5 +adj*2 + 'px');
+	
+	$('#homeShadow').css('padding-top', headerHeight + 'px');
+	$('#home').css('top', headerHeight + 'px');
+	
 	$callout.css('top', 'calc(50% - '+$callout.outerHeight()/2+'px)'); 
 	$loader.hide();
 	// on nav link click

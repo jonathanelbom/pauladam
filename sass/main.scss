@@ -205,6 +205,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;
 	background-color: transparent;
+	position: relative;
 	&.modal-shown {
 		overflow: hidden;
 	}
@@ -541,6 +542,7 @@ $photoHeight: 400px;
 #homeShadow {
 	width: 100%;
 	height: $photoHeight;
+	box-sizing: content-box;
 } 
 // ----------------------------- Hero -----------------------------
 .hero {
@@ -602,6 +604,13 @@ $photoHeight: 400px;
 	padding: 5px 10px 0px 10px;
 	@include border-radius(200px 200px 0 0);
 }
+.contact__phone > a {
+	color: #fff !important;
+}
+[object Object] {
+    color: #fff;
+    text-decoration: none
+}
 .contact .brand__wrapper {
 	//width: 100%;
 	//min-width: 150px;
@@ -639,6 +648,7 @@ $widthP: 40px;
 	border-top: $heightP solid $blue;
 	border-left: $widthP solid transparent;
 	border-right: $widthP solid transparent;
+	z-index: 10;
 }
 .point.about__point {
 	border-top: $heightP solid #ff;
@@ -728,6 +738,10 @@ $margL: 50px;
 				color: #fff;
 				background-color: $blue;
 				border-color: transparent;
+			}
+			&:visited, &:active {
+				//color: #fff;
+				//text-decoration: none;
 			}
 
 		}
