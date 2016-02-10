@@ -215,7 +215,7 @@ body {
 }
 .modal {
 	height: 100%;
-	background-color: rgba(255,255,255, 0.8);
+	background-color: rgba(255,255,255,0.95);
 	@include preserve-3d();
 	opacity: 0;
 	visibility: hidden;
@@ -314,14 +314,17 @@ $offset: 5px;
 }
 .modal_top {
 	top:0;
-	width:100%;
-	height:40%;
+	right:0;
+	width:50%;
+	height:20%;
+	z-index:1003;
+
 }
 .modal_bl {
 	bottom: 0;
 	left:0;
 	width:50%;
-	height:60%;
+	height:100%;
 	// &:hover {
 	// 	.corner{
 	// 		border-width: $triangle-hover-side 0 0 $triangle-hover-side;
@@ -332,7 +335,7 @@ $offset: 5px;
 	bottom: 0;
 	right:0;
 	width:50%;
-	height:60%;
+	height:80%;
 }
 .triangle-tl {
 	position: absolute;
