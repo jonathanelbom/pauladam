@@ -186,7 +186,7 @@ html {
 	font-family: 'Open Sans', sans-serif;
 	//background-color: #222;
 	height: 100%;
-	background-color: #ffffff;//#000;
+	background-color: #fff; // $blue; //#000;
 	//background: url( '../img/concrete_seamless.png' );
 	// $light: #f2f2f2; //#222; //#111;
 	// $dark: #eeeeee; //#111; //#000;
@@ -518,6 +518,7 @@ $offset: 5px;
 // ----------------------------- All Sections -----------------------------
 $section-padding: 60px;
 .section {
+	position: relative;
 	padding-top: $section-padding;
 	padding-bottom: $section-padding;
 	[class*="__description"] {
@@ -531,11 +532,20 @@ $section-padding: 60px;
 		margin-top: 0;
 	}
 }
-
+$photoHeight: 400px;
+// ----------------------------- Section Home -----------------------------
+#home {
+	position: fixed;
+	width: 100%;
+} 
+#homeShadow {
+	width: 100%;
+	height: $photoHeight;
+} 
 // ----------------------------- Hero -----------------------------
 .hero {
 	background-color: #000;
-	height: 500px;
+	height: $photoHeight;
 	overflow: hidden;
 	position: relative;
 	.callout {
@@ -544,7 +554,7 @@ $section-padding: 60px;
 		text-align: center;
 		width: 100%;
 		position: absolute;
-		font-size: 55px;
+		font-size: 3em;
 		color: #fff;
 		top: 35%;
 		// left: 35%;
@@ -566,18 +576,22 @@ $section-padding: 60px;
 		letter-spacing: 0px;
 	}
 	> img {
-		-webkit-filter: blur(5px) brightness(50%);;//grayscale(100%) contrast(150%);
+		-webkit-filter: blur(3px) brightness(40%);;//grayscale(100%) contrast(150%);
 		min-width: 100%;
-		min-height: 120%;
+		min-height: 100%;
 		position: relative;
 		overflow: hidden;
 	}
 }
 
 // ----------------------------- About Section -----------------------------
+.about {
+	//top: $photoHeight;
+}
 .brand {
 	//background-color: $blue;
 	//background-size: auto auto;
+	
 }
 
 .brand__wrapper {
@@ -591,7 +605,7 @@ $section-padding: 60px;
 .contact .brand__wrapper {
 	//width: 100%;
 	//min-width: 150px;
-	max-width: 162px;
+	max-width: 142px;
 }
 .brand__icon {
 	position: relative;
@@ -613,17 +627,22 @@ svg {
 	[class*="__title"] {
 		color: #fff;
 	}
+	position: relative;
 }
-.about__point {
-	$height: 80px;
-	$width: 80px;
-	width: 80px;
-	height: 80px;
-	@include calc( 'left', '50% - '+$width );
+$heightP: 40px;
+$widthP: 40px;
+.point {
+	width: $widthP;
+	height: $heightP;
+	@include calc( 'left', '50% - '+$widthP );
 	position: absolute;
-	border-top: $height solid $blue;
-	border-left: $width solid transparent;
-	border-right: $width solid transparent;
+	border-top: $heightP solid $blue;
+	border-left: $widthP solid transparent;
+	border-right: $widthP solid transparent;
+}
+.point.about__point {
+	border-top: $heightP solid #ff;
+	bottom: -$heightP;
 }
 // ----------------------------- Work Section -----------------------------
 .section.work {
@@ -633,12 +652,10 @@ svg {
 .work__job {
 	padding-top: $section-padding;
 	padding-bottom: $section-padding;
+	background-color: #fff;
 }
 .work__job:nth-child(odd) {
-	background-color: #f2f2f2;
-}
-.work__job:nth-child(odd) {
-	background-color: #f2f2f2;
+	background-color: #dedede;
 }
 .work__job__description {
 	margin-bottom: 30px;
@@ -649,9 +666,18 @@ svg {
 	background-color: $blue;
 	i {
 		margin-right: 20px;
-		font-size: 1.75em;
+		font-size: 2em;
 	}
-	
+	.contact__phone, .contact__email, .contact__copyright {
+		font-size: 1.25em;
+	}
+	position: relative;
+	margin-top: 0;
+	padding-top: $section-padding * 2;
+}
+.point.contact__point {
+	top: 0;
+	border-top-color: #fff;
 }
 .contact__icon {
 	width: 120px;
@@ -663,15 +689,16 @@ $margL: 50px;
 .contact__copyright {
 	i {
 		margin-right: 0px;
-		font-size: 1em;
+		font-size: 0.7em;
 	}
 	opacity: 0.3;
-	margin-top: 20px;
-	margin-left: $margL;
+	margin-top: 32px;
+	margin-left: 60px; //$margL;
 
 	&.contact__license {
 		opacity: 0.3;
 		font-size: 9px;
+		margin-top: 10px;
 		a {
 			color: #fff;
 			text-decoration: underline;
@@ -684,6 +711,10 @@ $margL: 50px;
 	// 	padding-left: 25px;
 	// 	padding-right: 25px;
 	// }
+	
+	.contact__copyright {
+		margin-left: 0;
+	}
 	.logo {
 	    margin-left: 10px;
 	  }
@@ -709,7 +740,15 @@ $margL: 50px;
 	.navbar-nav {
 		//border-top: 1px solid $blue;
 	}
-	.brand__wrapper {
+	.contact__left {
+		text-align: center;
+	}
+	.brand > .brand__wrapper {
 		margin-bottom: $section-padding;
+	}
+	.contact__right > .brand__wrapper {
+		float: none !important;
+		margin-top: $section-padding;
+		margin-bottom: 0;
 	}
 }
